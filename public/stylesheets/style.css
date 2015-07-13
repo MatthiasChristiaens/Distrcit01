@@ -1,3 +1,95 @@
+body
+{
+  width: 100%;
+  background-image: url("../images/dark_wall.png");
+}
+
+a
+{
+  text-decoration: none;
+}
+
+#user
+{
+  width: 50%;
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  list-style-type: none;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+
+}
+
+#logo
+{
+  background-image: url("../images/logo.png");
+  background-repeat: no-repeat;
+  display: block;
+  width: 97px;
+  height: 72px;
+  float: left;
+  padding-right: 400px;
+}
+
+.contactbanner
+{
+  background-image: url("../images/contact-01-01.png");
+  width: 980px;
+  height: 221px;
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 2px solid black;
+}
+
+#info, #contactgegevens
+{
+  width: 52%;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+}
+
+#info h1, #contactgegevens h1
+{
+  font-size: 26px;
+}
+
+#info p, #contactgegevens p
+{
+  font-size: 18px;
+}
+
+#contactgegevens
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#contact, #adres, #hours
+{
+  float: left;
+  width: 33%;
+  height: 250px;
+  text-align: center;
+  padding-top: 25px;
+}
+
+
+#contact h2, #adres h2, #hours h2
+{
+  font-size: 26px;
+}
+
+#contact p, #adres p, #hours p
+{
+  font-size: 18px;
+}
+
 /* -------------------------------- 
 
 signin/signup popup 
@@ -96,56 +188,38 @@ signin/signup popup
 
 .nav {
   text-align: left;
-  display: inline;
-  margin: 0;
-  padding: 15px 4px 17px 0;
-  list-style: none;
-  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  display: block;
+  padding: 15px 4px 17px 0; 
 }
+
+.main-nav
+{
+  text-align: left;
+  display: block;
+  float: left;
+}
+
+
 .nav li {
   font: bold 12px/18px sans-serif;
   display: inline-block;
-  margin-right: -4px;
   position: relative;
-  padding: 15px 20px;
-  background: #fff;
-  cursor: pointer;
+  padding: 15px 30px;
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -ms-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
-.nav li:hover {
-  background: #555;
-  color: #fff;
-}
 ul li ul {
-  padding: 0;
   position: absolute;
   top: 48px;
   left: 0;
-  width: 150px;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
   display: none;
   opacity: 0;
   visibility: hidden;
-  -webkit-transiton: opacity 0.2s;
-  -moz-transition: opacity 0.2s;
-  -ms-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  -transition: opacity 0.2s;
 }
-ul li ul li { 
-  background: #555; 
-  display: block; 
-  color: #fff;
-  text-shadow: 0 -1px 0 #000;
-}
+
 ul li ul li:hover { background: #666; }
 ul li:hover ul {
   display: block;

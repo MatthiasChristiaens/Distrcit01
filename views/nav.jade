@@ -1,0 +1,69 @@
+extends layout
+
+block nav
+	#user
+					li
+						a(href="/home" id="logo")
+
+						ul.nav
+							
+							li
+								a(href="/contact") Contact
+
+							if (!user)
+								div.main-nav
+									li
+										a(class="cd-signup", href="#0") Register
+									li
+										a(class="cd-signin", href="#0") Login
+							else if user
+								if user.admin == true
+									li.admin Admin
+										ul.dropdown
+											li.choices
+												a(href="/bestellingen") Bestellingen
+											li.choices
+												a(href="/productbeheer") Productbeheer
+								else
+									li
+										a(href="/home") Account
+
+									li
+										a(href="/cart") Cart
+								
+								li
+									a(href="/signout") Logout
+								
+
+						
+								
+
+
+				div.cd-user-modal
+					div.cd-user-modal-container
+						
+						ul.cd-switcher
+							li
+								a(href="#0") Log in
+							li
+								a(href="#0") New Account
+
+						div#cd-login
+							div.block
+								form(class='cd-form', action="login", method="POST")
+									label(for="username") Username
+									input(type='text', id="username", name='username', placeholder='Username',required, autofocus)
+									label(for="password") Password
+									input(type='password', id="username", name='password', placeholder='Password', required)
+									button(type='submit' class="login") Sign in
+
+						div#cd-signup
+							form(class='cd-form', action="registration", method="POST")
+								input(type='text', name='username', placeholder='Username',required, autofocus)
+								input(type='password', name='password', placeholder='Password', required)
+								input(type='email', name='email', placeholder='Email',required)
+								input(type='text', name='firstName', placeholder='First Name',required)
+								input(type='text', name='lastName', placeholder='Last Name',required)
+								button(class='btn btn-lg btn-primary btn-block', type='submit') Register
+
+						a(href="#0", class="cd-close-form") Close

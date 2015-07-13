@@ -63,5 +63,11 @@ module.exports = function(passport){
   		res.render('account');
 	});
 
+	router.get('/contact', function(req, res) {
+  		res.render('contact', { user: req.user });
+	});
+
+
+
 	return router;
 }
