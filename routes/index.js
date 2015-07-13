@@ -20,21 +20,21 @@ module.exports = function(passport){
 	});
 
 	/* Handle Login POST */
-	router.post('/home', passport.authenticate('login', {
+	router.post('/login', passport.authenticate('login', {
 		successRedirect: '/home',
 		failureRedirect: '/home',
 		failureFlash : true  
 	}));
 
 	/* GET Registration Page */
-	router.get('/signup', function(req, res){
-		res.render('register',{message: req.flash('message')});
+	router.get('/registration', function(req, res){
+		res.render('home',{message: req.flash('message')});
 	});
 
 	/* Handle Registration POST */
-	router.post('/signup', passport.authenticate('signup', {
+	router.post('/registration', passport.authenticate('signup', {
 		successRedirect: '/home',
-		failureRedirect: '/signup',
+		failureRedirect: '/home',
 		failureFlash : true  
 	}));
 
@@ -53,10 +53,6 @@ module.exports = function(passport){
 	router.get('/signout', function(req, res) {
 		req.logout();
 		res.redirect('/home');
-	});
-
-	router.get('/webshop', function(req, res) {
-  		res.render('webshop');
 	});
 
 	router.get('/login', function(req, res) {

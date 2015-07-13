@@ -2,25 +2,40 @@ extends layout
 
 block content
 			#user
-				
-					ul.nav
-						li
-							a(href="/home") Home
-						li
-							a(href="/contact") Contact
-						if (!user)
-							div.main-nav
-								li
-									a(class="cd-signup", href="#0") Register
-								li
-									a(class="cd-signin", href="#0") Login
-						else
+						ul.nav
 							li
-								a(href="/home") Account
+								a(href="/home") Home
 							li
-								a(href="/signout") Logout
-						li
-							a(href="/cart") Cart
+								a(href="/contact") Contact
+
+							if (!user)
+								div.main-nav
+									li
+										a(class="cd-signup", href="#0") Register
+									li
+										a(class="cd-signin", href="#0") Login
+							else if user
+								if user.admin == true
+									li.admin Admin
+										ul.dropdown
+											li.choices
+												a(href="/bestellingen") Bestellingen
+											li.choices
+												a(href="/productbeheer") Productbeheer
+								else
+									li
+										a(href="/home") Account
+
+									li
+										a(href="/cart") Cart
+								
+								li
+									a(href="/signout") Logout
+								
+
+						
+								
+
 
 				div.cd-user-modal
 					div.cd-user-modal-container
@@ -33,7 +48,7 @@ block content
 
 						div#cd-login
 							div.block
-								form(class='cd-form', action="home", method="POST")
+								form(class='cd-form', action="login", method="POST")
 									label(for="username") Username
 									input(type='text', id="username", name='username', placeholder='Username',required, autofocus)
 									label(for="password") Password
@@ -41,7 +56,7 @@ block content
 									button(type='submit' class="login") Sign in
 
 						div#cd-signup
-							form(class='cd-form', action="home", method="POST")
+							form(class='cd-form', action="registration", method="POST")
 								input(type='text', name='username', placeholder='Username',required, autofocus)
 								input(type='password', name='password', placeholder='Password', required)
 								input(type='email', name='email', placeholder='Email',required)
