@@ -67,6 +67,10 @@ module.exports = function(passport){
   		res.render('contact', { user: req.user });
 	});
 
+	router.get('/productbeheer', function(req, res) {
+  		res.render('productbeheer', { user: req.user });
+	});
+
 
 
 	return router;

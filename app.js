@@ -4,6 +4,8 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var multer = require('multer');
+var done = false;
 
 var dbConfig = require('./db');
 var mongoose = require('mongoose');
@@ -42,6 +44,31 @@ initPassport(passport);
 
 var routes = require('./routes/index')(passport);
 app.use('/', routes);
+
+
+
+// picture upload
+
+
+app.use(multer({dest:'./public/images/',
+  rename: function(fieldname, filename){
+    return filename;
+  },
+  onFileUploadStart: function(file){
+    console.log(file.originalname + ' is starting ...');
+  },
+  onFileUploadComplete: function(file){
+    console.log(file.fieldname + ' uploaded to ' + file.path);
+    done = true;
+  }
+}));
+
+app.post("/api/photo", function(req, res){
+  if(done == true){
+    console.log(req.files);
+    res.redirect('/productbeheer');
+  }
+});
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

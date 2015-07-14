@@ -21,6 +21,77 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+
+
+//ADD SOCKET SERVER
+
+var io = require('socket.io')(server);
+
+//ADD MODALS
+
+var user = require('../models/user');
+var Product = require('../models/product');
+
+
+
+
+
+//SOCKETS
+
+
+
+io.on('connection', function(socket){
+
+console.log('user connected');
+  
+  // socket.on('disconnect', function(){
+
+  //   console.log('user disconnected');
+
+  // });
+
+  socket.on("addProduct", function(data){
+
+    Product.create(data, function(err, b){
+      console.log('b', b);
+    
+    });
+
+  });
+
+  io.on('connect', function(socket) {
+    Product.find()
+      .exec(function(err, products) {
+        socket.emit('showProducts', products);
+      });
+  });
+
+  socket.on('findProducts', function(data) {
+
+    console.log("hihi");
+
+    results.find()
+      .exec(function(err, results){
+          socket.emit('showProducts', results);
+          console.log(results);
+      });
+
+ 
+  });
+  
+});
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */

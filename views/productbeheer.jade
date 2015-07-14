@@ -1,0 +1,18 @@
+extends layout
+extends nav
+
+block content
+
+	form(id='uploadForm' enctype="multipart/form-data" action="/api/photo" method="post")
+		input(type="file" id="productPicture" name="productPicture")
+		input(type='text', name='title', id="title" placeholder='Title')
+		input(type="text", name="description", id="description", placeholder="Description")
+		input(type="text", name="price", id="price", placeholder="Price")
+
+		select(name='type', id="type")
+			option(value='1') Hat
+			option(value='2') T-shirt
+			option(value='3') Sweater
+			option(value='4') accesories
+
+		button(type="submit", id="addButton") Add product
