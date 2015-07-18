@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 		var total= r.length;
 		for(var i=0; i < total; i++){
-			$('.product').append('<div><ul class="productkader"><li><img class="productImage" src="' + r[i].picture + '"></li><li id="title">' + r[i].title + '</li><li id="description">' + r[i].description + '</li><li id="price">' + r[i].price + '</li><li id="type">' + r[i].type + '</li>' + '<div class="loginCheck" id="' + r[i]._id + '"><input type="button" class="addOne" id="' + r[i]._id + '" value=" + "> ' + '<input type="button" class="diminishOne" id="' + r[i]._id + '" value=" - "><p class="amount'+r[i]._id + '">0</p><input type="submit" class="orderFinal" id="' + r[i]._id + '" value="Add to cart"></div></ul></div>');
+			$('.product').append('<div><ul class="productkader"><li><img class="productImage" src="' + r[i].picture + '"></li><li class="title'+ r[i]._id + '">' + r[i].title + '</li><li id="description">' + r[i].description + '</li><li class="price'+r[i]._id + '">' + r[i].price + '</li><li id="type">' + r[i].type + '</li>' + '<div class="loginCheck" id="' + r[i]._id + '"><input type="button" class="addOne" id="' + r[i]._id + '" value=" + "> ' + '<input type="button" class="diminishOne" id="' + r[i]._id + '" value=" - "><p class="amount'+r[i]._id + '">0</p><input type="submit" class="orderFinal" id="' + r[i]._id + '" value="Add to cart"></div></ul></div>');
 
 		}
 
@@ -83,11 +83,14 @@ $(document).ready(function(){
 
 			var pid = $(this).attr('id');
 
+			var title = $(".title"+pid).html();
 			var quantity = $(".amount"+pid).html();
+			var price = $(".price"+pid).html();
+			var total = quantity*price;
 			var productId = pid;
 			var usercartId = $(".iduser").html();
 
-			var dataCart = {quantity: quantity, productId: productId, usercartId: usercartId};
+			var dataCart = {title: title, quantity: quantity, price: price, total: total, productId: productId, usercartId: usercartId};
 
 			socket.emit("addCart", dataCart);
 

@@ -45,12 +45,6 @@ var orders = require('../models/orders');
 io.on('connection', function(socket){
 
 console.log('user connected');
-  
-  // socket.on('disconnect', function(){
-
-  //   console.log('user disconnected');
-
-  // });
 
   socket.on('findProductData', function(data) {
 
@@ -73,7 +67,7 @@ console.log('user connected');
 
   socket.on("addCart", function(data){
 
-    cart.create({quantity: data.quantity, productId: data.productId, usercartId: data.usercartId}, function(err, b){
+    cart.create(data, function(err, b){
 
     
     });
@@ -92,20 +86,38 @@ console.log('user connected');
 
   });
 
-  
+  socket.on('addToOrder', function(data) {
+
+    orders.create(data, function(err, data) { 
+
+        });
+    var arraaaay = data.order
+    var arrghlength = arraaaay.length;
 
 
-  //Find products in cart in DB
 
-//   socket.on('findCartProducts', function(data) {
+    for(var i = 0; i < arrghlength; i++){
 
-//     results.find()
-//       .exec(function(err, results){
-//           socket.emit('showCartProducts', results);
+        console.log(arraaaay[i]);
+          cart.findByIdAndUpdate(arraaaay[i], {status: "false"}, function(err, b){
 
-//       });
+          }); 
 
-//   });
+      }
+
+    });
+
+
+
+  socket.on('findOrders', function(data) {
+
+    results.find()
+      .exec(function(err, results){
+          socket.emit('showAllOrders', results);
+
+      });
+
+  });
 
 });
 
@@ -119,12 +131,16 @@ io.on('connect', function(socket) {
       .exec(function(err, products) {
         socket.emit('showProducts', products);
       });
-  });
 
-io.on('connect', function(socket) {
     cart.find()
       .exec(function(err, carts) {
         socket.emit('showCartProducts', carts);
+        socket.emit('showCarts', carts);
+      });
+
+    orders.find()
+      .exec(function(err, orders) {
+        socket.emit('showAllOrders', orders);
       });
   });
 

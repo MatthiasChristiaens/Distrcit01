@@ -3,6 +3,6 @@ var mongoose = require('mongoose');
 module.exports = mongoose.model('Orders',{
 	id: String,
 	order: {type: String, default: ""},
-	status: String,
+	status: {type: String, default: "Wachten op verzending"},
 	userorder: String
 });
