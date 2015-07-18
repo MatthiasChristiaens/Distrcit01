@@ -7,5 +7,5 @@ module.exports = mongoose.model('User',{
 	email: String,
 	firstName: String,
 	lastName: String,
-	admin: {type: Boolean, default: 0}
+	admin: {type: Boolean, default: 0},
 });

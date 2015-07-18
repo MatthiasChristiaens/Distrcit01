@@ -71,7 +71,9 @@ module.exports = function(passport){
   		res.render('productbeheer', { user: req.user });
 	});
 
-
+	router.get('/cart', function(req, res) {
+  		res.render('cart', { user: req.user });
+	});
 
 	return router;
 }

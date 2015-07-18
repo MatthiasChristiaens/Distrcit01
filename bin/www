@@ -31,6 +31,8 @@ var io = require('socket.io')(server);
 
 var user = require('../models/user');
 var Product = require('../models/product');
+var cart = require('../models/cart');
+var orders = require('../models/orders');
 
 
 
@@ -50,39 +52,81 @@ console.log('user connected');
 
   // });
 
+  socket.on('findProductData', function(data) {
+
+    Product.findById(data, function(err, result){
+          
+          console.log(result.price);
+          socket.emit('showProductData', result);
+
+      });
+  });
+
   socket.on("addProduct", function(data){
 
     Product.create(data, function(err, b){
-      console.log('b', b);
+
     
     });
 
   });
 
-  io.on('connect', function(socket) {
+  socket.on("addCart", function(data){
+
+    cart.create({quantity: data.quantity, productId: data.productId, usercartId: data.usercartId}, function(err, b){
+
+    
+    });
+
+  });
+
+  //Find products in DB
+
+  socket.on('findProducts', function(data) {
+
+    results.find()
+      .exec(function(err, results){
+          socket.emit('showProducts', results);
+
+      });
+
+  });
+
+  
+
+
+  //Find products in cart in DB
+
+//   socket.on('findCartProducts', function(data) {
+
+//     results.find()
+//       .exec(function(err, results){
+//           socket.emit('showCartProducts', results);
+
+//       });
+
+//   });
+
+});
+
+
+
+
+//  
+
+io.on('connect', function(socket) {
     Product.find()
       .exec(function(err, products) {
         socket.emit('showProducts', products);
       });
   });
 
-  socket.on('findProducts', function(data) {
-
-    console.log("hihi");
-
-    results.find()
-      .exec(function(err, results){
-          socket.emit('showProducts', results);
-          console.log(results);
+io.on('connect', function(socket) {
+    cart.find()
+      .exec(function(err, carts) {
+        socket.emit('showCartProducts', carts);
       });
-
- 
   });
-  
-});
-
-
-
 
 
 

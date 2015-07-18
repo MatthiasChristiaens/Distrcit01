@@ -1,0 +1,79 @@
+extends layout
+extends nav
+
+block content
+
+	//- div.rows
+	//- 	ul
+	//- 		li Title
+	//- 		li Quantity
+	//- 		li Price
+	//- 		li Total
+
+	
+	table.cartTotal
+		tr
+			th Title
+			th Quantity
+			th Price
+			th Total
+
+	if user
+		p.hidden.user.iduser #{user._id}
+
+
+	
+	script.
+		$(document).ready(function(){
+
+			var socket = io.connect('http://localhost:3000');
+
+			var kloteId = "#{user._id}";
+
+			socket.on('showCartProducts', function(r){
+
+				socket.on('showProductData', function(p){
+
+						T[i] = p.title;
+						P[i] = p.price;
+						kakding();
+
+						
+				});
+
+				var total = r.length;
+
+				for(var i=0; i < total; i++){
+
+
+					var Q = [];
+					var CiD = [];
+					var T = [];
+					var P = [];
+					Q[i] = r[i].quantity;
+					CiD[i] = r[i].usercartId;
+
+					if(CiD[i] == kloteId){
+						socket.emit('findProductData', r[i].productId);
+						
+						$('.titre').append('<td class="quantité">' + T[i] + '</td>');
+					}
+					
+					function kakding(){
+						
+						$('.cartTotal').append('<tr><td class="titre">' + T[i] + '</td><td class="quantité"></td><td class="prix">' + P[i] + '</td></tr>');
+						ready = true;
+					}
+
+				
+				}
+
+				if ($(".user").html() == ""){
+
+					$(".loginCheck").addClass("hidden");
+
+				};
+
+			});
+
+		});

@@ -15,7 +15,6 @@ $(document).ready(function(){
 
 			var data = {picture: picture, title: title, description: description, price: price, type:type};
 
-			console.log("data")
 
 			socket.emit("addProduct", data);
 			
@@ -24,7 +23,7 @@ $(document).ready(function(){
 					status('Error: ' + xhr.status);
 				},
 				success: function(response){
-					console.log(response);
+
 				}
 			});
 			return false;
@@ -32,15 +31,88 @@ $(document).ready(function(){
 
 	socket.on('showProducts', function(r){
 
-		console.log("hihi");
-
-		console.log(r);
 		var total= r.length;
 		for(var i=0; i < total; i++){
-			$('.product').prepend('<div><p>' + r[i].title + r[i].description + r[i].price + r[i].type + '</p></div>');
-			console.log(r[i]);
+			$('.product').append('<div><ul class="productkader"><li><img class="productImage" src="' + r[i].picture + '"></li><li id="title">' + r[i].title + '</li><li id="description">' + r[i].description + '</li><li id="price">' + r[i].price + '</li><li id="type">' + r[i].type + '</li>' + '<div class="loginCheck" id="' + r[i]._id + '"><input type="button" class="addOne" id="' + r[i]._id + '" value=" + "> ' + '<input type="button" class="diminishOne" id="' + r[i]._id + '" value=" - "><p class="amount'+r[i]._id + '">0</p><input type="submit" class="orderFinal" id="' + r[i]._id + '" value="Add to cart"></div></ul></div>');
+
+		}
+
+		if ($(".user").html() == ""){
+
+			$(".loginCheck").addClass("hidden");
+
+		};
+
+	});
+
+
+	$(document).on("click", ".addOne", function(){
+			var pid = $(this).attr('id');
+
+
+
+
+
+			var teller = $(".amount"+pid).html();
+			teller++;
+
+			$(".amount"+pid).html(teller);
+
+			
+
+	});
+
+	$(document).on("click", ".diminishOne", function(){
+
+		var pid = $(this).attr('id');
+
+
+		var teller = $(".amount"+pid).html();
+
+		if(teller > 0){
+			
+			teller--;
+
+			$(".amount"+pid).html(teller);
+
 		}
 
 	});
+
+	$(document).on("click", ".orderFinal", function(){
+
+			var pid = $(this).attr('id');
+
+			var quantity = $(".amount"+pid).html();
+			var productId = pid;
+			var usercartId = $(".iduser").html();
+
+			var dataCart = {quantity: quantity, productId: productId, usercartId: usercartId};
+
+			socket.emit("addCart", dataCart);
+
+			// window.location = "../cart";
+
+	});
+
+	// socket.on('showCartProducts', function(r){
+
+	// 	console.log(r);
+	// 	var total= r.length;
+	// 	for(var i=0; i < total; i++){
+	// 		$('.cartTotal').append('<ul><li>' + r[i].quantity + '</li><li>' + r[i].productId + '</li><li>' + r[i].usercartId + '</li></ul>');
+	// 		console.log(r[i]._id)
+	// 		console.log(r[i]);
+	// 	}
+
+	// 	if ($(".user").html() == ""){
+
+	// 		$(".loginCheck").addClass("hidden");
+
+	// 	};
+
+	// });
+
+
 
 });
