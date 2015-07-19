@@ -74,21 +74,13 @@ console.log('user connected');
 
   });
 
-  //Find products in DB
 
-  socket.on('findProducts', function(data) {
-
-    results.find()
-      .exec(function(err, results){
-          socket.emit('showProducts', results);
-
-      });
-
-  });
 
   socket.on('addToOrder', function(data) {
 
     orders.create(data, function(err, data) { 
+
+          io.emit('updateOrders', data);
 
         });
     var arraaaay = data.order
@@ -105,17 +97,36 @@ console.log('user connected');
 
       }
 
+
+
     });
 
 
 
-  socket.on('findOrders', function(data) {
+  // Change state from Wachten op verzenden to Verzonden
 
-    results.find()
-      .exec(function(err, results){
-          socket.emit('showAllOrders', results);
+  socket.on("changeState", function(data){
 
-      });
+      orders.findByIdAndUpdate(data, {status: "Verzonden"}, function(err, b){
+
+         socket.emit('updateState', b);
+
+        console.log(b);
+
+    
+    });
+
+  });
+
+  socket.on("getUserData", function(data){
+
+      user.findById(data, function(err, b){
+
+        socket.emit('idToName', b.firstName);
+
+        console.log(b.firstName);
+
+    });
 
   });
 

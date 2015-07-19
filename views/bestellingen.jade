@@ -3,7 +3,16 @@ extends nav
 
 block content
 
-	table.orderList
+	div.filter
+		form
+			select(name='status', id="statusFilter")
+				option(value='showAll') Show All
+				option(value='verzonden') Verzonden
+				option(value='wachtenOpVerzending') Wachten op verzending
+			button(type='submit' class='hidden') Filter
+
+
+	table.tableCSS.orderList
 		tr
 			th OrderId
 			th Status

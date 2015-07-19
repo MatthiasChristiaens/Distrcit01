@@ -60,7 +60,7 @@ module.exports = function(passport){
 	});
 
 	router.get('/account', function(req, res) {
-  		res.render('account');
+  		res.render('account', { user: req.user });
 	});
 
 	router.get('/contact', function(req, res) {

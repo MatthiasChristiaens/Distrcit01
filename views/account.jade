@@ -1,3 +1,55 @@
 extends layout
+extends nav
 
 block content
+	#user
+		div.details
+			p.username #{user.username}
+			p.name #{user.firstName} #{user.lastName}
+
+	table.myOwnOrders
+		tr
+			th OrderId
+			th Status
+			th Customer
+
+	if user
+		p.hidden.user.iduser #{user._id}
+
+	script.
+		$(document).ready(function(){
+
+			var socket = io.connect('http://localhost:3000');
+
+			var array = [];
+			var userId = "#{user._id}";
+
+			socket.on('showAllOrders', function(r){
+
+			var total = r.length;
+
+			for(var j=0; j < total; j++){
+
+			console.log(r[j].userorder);
+			
+
+				if(r[j].userorder == userId){
+					
+						$('.myOwnOrders').append('<tr><td>' + r[j]._id + '</td><td>' + r[j].status + '</td><td>' + r[j].userorder + '</td></tr>');
+
+				}
+			
+			}
+
+			if ($(".user").html() == ""){
+
+				$(".loginCheck").addClass("hidden");
+
+			};
+
+
+
+			});
+
+		});
+		
