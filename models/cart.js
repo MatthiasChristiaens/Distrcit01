@@ -5,6 +5,7 @@ module.exports = mongoose.model('Cart',{
 	title: String,
 	quantity: String,
 	price: String,
+	option: String,
 	total: String,
 	productId: String,
 	usercartId: String,

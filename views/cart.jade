@@ -8,6 +8,7 @@ block content
 			th Title
 			th Quantity
 			th Price
+			th Size
 			th Total
 
 	button(class='orderAll', type='submit') Order
@@ -34,7 +35,7 @@ block content
 					if(r[i].usercartId == userId){
 						
 						if(r[i].status == "true"){
-							$('.cartTotal').append('<tr><td>' + r[i].title + '</td><td>' + r[i].quantity + '</td><td>' + r[i].price + '</td><td>' + r[i].total + '</td></tr>');
+							$('.cartTotal').append('<tr><td>' + r[i].title + '</td><td>' + r[i].quantity + '</td><td>' + r[i].price + '</td><td>' + r[i].option + '</td><td>' + r[i].total + '</td></tr>');
 
 							array[i] = r[i]._id;
 						}
@@ -57,6 +58,8 @@ block content
 				var dataOrder = {userorder: userId, order: array};
 				
 				socket.emit("addToOrder", dataOrder);
+
+				window.location.href='/account';
 
 			});	
 

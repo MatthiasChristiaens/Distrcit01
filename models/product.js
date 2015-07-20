@@ -6,5 +6,6 @@ module.exports = mongoose.model('Product',{
 	title: String,
 	description: String,
 	price: Number,
-	type: String
+	type: String,
+	option: String
 });
